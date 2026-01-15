@@ -44,6 +44,9 @@ const NavigationMenuComp = ({ className }: NavigaionMenuCompProps) => {
           <NavigationMenuItem className={param.startsWith('/contact') ? 'border-b border-amber-500' : ''}>
             <Link href='/contact'>İletişim</Link>
           </NavigationMenuItem>
+          <NavigationMenuItem className={param.startsWith('/contact') ? 'border-b border-amber-500' : ''}>
+            <Link href='/testcomp'>TEST</Link>
+          </NavigationMenuItem>
 
         </NavigationMenuList>
       </NavigationMenu>
