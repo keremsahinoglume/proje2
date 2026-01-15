@@ -2,35 +2,47 @@
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { send } from "process"
 import { useState } from "react"
-
+import {
+    Card,
+    CardAction,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card"
 
 const CalculatePage = () => {
 
-    const [valueState, SetValue] = useState('')
+    const [valueState, SetValue] = useState<string[]>([''])
 
-    const [inputValue, SetInputValue] = useState('0')
-    const screen = (e: any) => {
-        return SetValue(e.target.value)
-    }
+    const [inputValue, SetInputValue] = useState<string[]>(['0'])
+
 
     const restart = () => {
-        SetValue('')
-        SetInputValue('0')
+        SetValue([''])
+        SetInputValue(['0'])
     }
 
     const calculate = () => {
-        console.log(valueState)
+        const tF = inputValue.includes('1', 2)
+        console.log(tF)
+
+        SetValue(inputValue)
+
     }
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         const value = e.currentTarget.dataset.value
-        SetInputValue(value)
+        if (!value) return
+        SetInputValue(prev => [...prev, value]);
+
     }
 
+
     const handleOp = (o: ('+' | '-' | '/' | '*')) => {
-        SetInputValue(o)
+        SetInputValue(prev => [...prev, o]);
 
     }
 
@@ -41,7 +53,7 @@ const CalculatePage = () => {
                 <div className="flex flex-row">
 
                     <div className="w-2xs">Sonuç: {valueState}</div>
-                    <Input placeholder={inputValue} />
+                    <Input />
                     <Button onClick={calculate}>Hesapla</Button>
                     <Button onClick={restart}>Sıfırla</Button>
                 </div>
@@ -65,6 +77,22 @@ const CalculatePage = () => {
                 </div>
 
             </div>
+
+
+            <Card>
+                <CardHeader>
+                    <CardTitle>Card Title</CardTitle>
+                    <CardDescription>Card Description</CardDescription>
+                    <CardAction>Card Action</CardAction>
+                </CardHeader>
+                <CardContent>
+                    <p>Card Content</p>
+                </CardContent>
+                <CardFooter>
+                    <p>Card Footer</p>
+                </CardFooter>
+            </Card>
+
         </div>
     )
 }

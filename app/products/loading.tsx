@@ -1,9 +1,11 @@
-import SpinnerComps from "@/components/SpinnerComps";
+import { Spinner } from '@/components/ui/spinner'
 
-export default function Loading() {
+const loading = () => {
     return (
-        <div className="flex justify-center items-center min-h-screen">
-            <SpinnerComps />
+        <div className="flex h-full items-center justify-center">
+            <Spinner />
         </div>
-    );
+    )
 }
+
+export default loading

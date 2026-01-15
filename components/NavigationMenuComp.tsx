@@ -18,19 +18,21 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 
-const NavigationMenuComp = () => {
+type NavigaionMenuCompProps = {
+  className: string
+}
 
+const NavigationMenuComp = ({ className }: NavigaionMenuCompProps) => {
 
   const param = usePathname()
 
 
   return (
-    <div className='flex flex-row sticky top-0'>
+    <header className={className}>
+      <NavigationMenu  >
 
-      <NavigationMenu>
-
-        <NavigationMenuList>
-          <NavigationMenuItem className={param === '/' ? 'border-b border-amber-500' : ''}>
+        <NavigationMenuList className='flex gap-4 ml-2.5'>
+          <NavigationMenuItem className={(param === '/' ? 'border-b border-amber-500 dark:border-amber-50' : '')}>
             <Link href='/' >Ana sayfa</Link>
           </NavigationMenuItem>
           <NavigationMenuItem className={param.startsWith('/calculate') ? 'border-b border-amber-500' : ''}>
@@ -47,10 +49,10 @@ const NavigationMenuComp = () => {
       </NavigationMenu>
       <InputArea />
 
-      <DarkMode />
-
-    </div>
-
+      <div className='mr-2.5'>
+        <DarkMode />
+      </div>
+    </header>
   )
 }
 

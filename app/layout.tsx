@@ -28,17 +28,14 @@ export default function RootLayout({
 }>) {
   return (
     <html suppressHydrationWarning lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <NavigationMenuComp />
-          {children}
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased grid grid-rows-[100px_1fr] h-screen m-0 p-0`}      >
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange    >
+          <NavigationMenuComp className={'border flex justify-between p-1 m-3 items-center '} />
+          <main className="p-4 border m-3 ">
+
+            {children}
+
+          </main>
         </ThemeProvider>
       </body>
     </html>

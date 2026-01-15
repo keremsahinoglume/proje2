@@ -1,47 +1,74 @@
-import Post from '@/types/posts'
+import Image from 'next/image'
+import React from 'react'
 import {
     Card,
     CardAction,
     CardContent,
     CardDescription,
+    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-import Image from 'next/image'
 import Link from 'next/link'
 
 const BASE_URL = 'https://fakestoreapi.com/products'
 
-const getproducts = async (): Promise<Post[]> => {
-    const res = await fetch(BASE_URL, { cache: "no-store" })
-    return res.json()
+const fetchData = async () => {
+    const data = await fetch(BASE_URL)
+    return data.json()
+}
+type Product = {
+    id: number
+    title: string
+    price: number
+    description: string
+    category: string
+    image: string
+    rating: {
+        rate: number
+        count: number
+    }
 }
 
-export default async function Page() {
-    const products = await getproducts()
+
+const products = async () => {
+
+    const data: Product[] = await fetchData()
 
     return (
-        <div className='flex flex-wrap justify-center gap-5 max-w-6xl mx-auto'>
-            {products.map(({ id, image, title, description }) => (
-                <Card className='bg-black' key={id}>
-                    <CardHeader>
-                        <CardTitle className='text-blue-50'>{title}</CardTitle>
-                        <CardDescription>{description}</CardDescription>
-                        <CardAction className='text-blue-50'>
-                            <Link href={`/products/${id}`}>Detay</Link>
-                        </CardAction>
-                    </CardHeader>
+        <article className="flex gap-5 flex-wrap justify-center  ">
+            {data.map(
+                ({ id, description, image, title }) => (
+                    <Card key={id} className="w-[300px] flex flex-col justify-between">
+                        <CardHeader>
+                            <CardTitle className="line-clamp-2">{title}</CardTitle>
+                            <CardDescription className="line-clamp-4">
+                                {description}
+                            </CardDescription>
+                        </CardHeader>
 
-                    <CardContent>
-                        <Image
-                            src={image}
-                            alt={title}
-                            width={300}
-                            height={200}
-                        />
-                    </CardContent>
-                </Card>
-            ))}
-        </div>
+                        <CardContent className="flex justify-center">
+                            <Image
+                                src={image}
+                                width={200}
+                                height={200}
+                                alt={title}
+                                className="object-contain"
+                            />
+                        </CardContent>
+
+                        <CardFooter className="flex justify-end">
+                            <Link href={`/products/${id}`} className="text-sm text-blue-500">
+                                Detay
+                            </Link>
+                        </CardFooter>
+                    </Card>
+
+                )
+            )}
+        </article>
+
     )
 }
+
+export default products
